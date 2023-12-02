@@ -112,7 +112,7 @@ const Board = ()=> {
 
   return (
   <> 
-  <Chessboard position={game.fen()} onPieceDrop={onDrop} boardWidth={650} animationDuration = {0}/>
+  <Chessboard position={game.fen()} onPieceDrop={onDrop} boardWidth={650} animationDuration = {0} autoPromoteToQueen={true}/>
   <button onClick={()=>{
       let move = getBestMove(game, 'w', -globalSum)[0];
       console.log(move);

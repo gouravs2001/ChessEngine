@@ -1,9 +1,10 @@
-import ChessBoard from "./components/Board";
+import MultiPlayerBoard from "./components/MultiPlayerBoard";
+import Board from "./components/Board";
 
 function App() {
   return (
     <>
-      <ChessBoard />
+      <MultiPlayerBoard />
     </>
   );
 }
