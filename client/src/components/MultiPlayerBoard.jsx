@@ -11,11 +11,12 @@ let socket = io.connect(SOCKET_SERVER,()=>{socket.emit('opponentJoin')});
 
 
 const MultiPlayerBoard = (
-
-) => {
-	//The FEN representation of the board. Stored in state
-
-	const[game,setGame] = useState(new Chess());
+	
+	) => {
+		//The FEN representation of the board. Stored in state
+		
+		const[game,setGame] = useState(new Chess());
+		const [boardOrientation,setBoardOrientation] = useState('white');
 	
 
 	function makeAMove(move) {
@@ -44,7 +45,6 @@ const MultiPlayerBoard = (
 	
 	  }
 
-	  const [boardOrientation,setBoardOrientation] = useState('white');
 
 	  useEffect(()=>{
 
@@ -62,6 +62,7 @@ const MultiPlayerBoard = (
 	return (
 		<>
 			<Chessboard position={game.fen() } boardWidth={700} onPieceDrop={onDrop} animationDuration={0} boardOrientation={boardOrientation}  />
+			
 		</>
 	);
 };
