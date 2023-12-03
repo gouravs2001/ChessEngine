@@ -14,17 +14,23 @@ const io = new Server(server, {
   },
 });
 
+const playerid = []
+
 app.use(cors());
 let playerCount = 0;
 
 io.on("connection", (socket) => {
   playerCount++;
   console.log("number of players", playerCount);
+  console.log(playerid)
 
   if (playerCount === 1) {
+    playerid.push(socket.id)
     socket.emit("setBoardColor", "white");
     console.log("PLAYER 1");
   } else if (playerCount === 2) {
+    playerid.push(socket.id)
+    socket.broadcast.emit("socketid" , playerid)
     socket.emit("setBoardColor", "black");
     console.log("player2");
   } else if (playerCount > 2) {
@@ -39,8 +45,11 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("recieved_move", move);
   });
 
+  // let indexToRemove = myArray.indexOf(elementToRemove);
+
   socket.on("disconnect", () => {
     console.log("user Disconnected ");
+    console.log(socket.id)
     playerCount--;
   });
 });

@@ -5,6 +5,8 @@ import { evaluateBoard } from "../utils/evaluateBoard";
 import {minimax} from '../utils/minimax'
 import {FormControl, MenuItem  ,Select  ,InputLabel } from '@mui/material'
 
+
+
 let globalSum = 0;
 const Board = ()=> {
   const [game, setGame] = useState(new Chess());
@@ -165,9 +167,9 @@ const bigdiv = {
 const isWhiteTurn = game.turn() === 'w';
 const isChecked = game.in_check() || game.in_checkmate();
 return (
-  
-  <div style = {{marginLeft :  '450px' ,  marginTop : '50px'}} >
-  <label htmlFor="difficulty">Select Difficulty:</label>
+  <div> 
+  <div style = {{marginLeft :  '450px' ,  marginTop : '50px' }} >
+  <label htmlFor="difficulty"  style={ {color : 'white' , fontWeight : 'bolder'}}  >Select Difficulty:  </label>
   <select id="difficulty" onChange={handleDifficultyChange} value={depth}>
     <option value= "1">Easy</option>
     <option value="2">Medium</option>
@@ -182,7 +184,7 @@ return (
     <div >
     <div> 
       {/* Game History */}
-      <div id="ithasatag" style={{ marginBottom: '10px' }}>
+      <div id="ithasatag" style={{ marginBottom: '10px',  color: 'white' , backgroundColor : 'rgba( 0, 0, 0 , 0.3 )' ,  height : '600px' , minWidth : '400px' , maxWidth : '400px' ,  borderRadius : '10px' , padding : '20px' , fontWeight : 'bolder'}}>
         {history.map((item, index) => {
           return (item = item + '\n');
         })}
@@ -204,14 +206,14 @@ return (
 }}>
   {text}
 </div>
-      <div>
-        <button
+      <div style={{margin:'5px'}}>
+        <button style={{margin : '5px'}}
           onClick={() => {
             let move = getBestMove(game, game.turn(), game.turn() === 'w' ? -globalSum : globalSum)[0];
             setHint(move);
           }}
         >
-          Hint
+          <img src="./idea.png"/>
         </button>
         <button
           onClick={() => {
@@ -224,10 +226,10 @@ return (
             updateAdvantage();
           }}
         >
-          Undo
+          <img src="./undo-arrow.png"/>
         </button>
         </div> 
-        <div> 
+        <div style={{color : 'white' , fontWeight : 'bolder' , margin : '5px'}}> 
           {hint === null || hint === undefined ? "" :  hint.from + "---->"+ hint.to}
         </div>
     </div>
@@ -237,6 +239,7 @@ return (
     {/* Buttons */}
     <br/>
         </div>
+      </div>
       </div>
 );
 

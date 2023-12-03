@@ -19,6 +19,7 @@ const MultiPlayerBoard = (
 		const [text,  setText] =  useState("")
 		const [history , setHistory] = useState(game.history())
 		const [boardOrientation,setBoardOrientation] = useState('white');
+		const [playerID , setPlayerId] = useState(null)
 	
 
 	function makeAMove(move) {
@@ -50,7 +51,6 @@ const MultiPlayerBoard = (
 	  const isWhiteTurn = game.turn() === 'w';
 	  const isChecked = game.in_check() || game.in_checkmate();
 
-
 	  useEffect(()=>{
 
 		socket.on('setBoardColor',(data)=>{
@@ -61,6 +61,10 @@ const MultiPlayerBoard = (
 		socket.on("recieved_move",(move)=>{
 			makeAMove(move);
 		})
+		socket.on("socketid" , (id)=>{
+		setPlayerId(id)
+		console.log(playerID)
+		}) 
 	  },[socket])
 
 	  useEffect(  () => {
@@ -101,11 +105,11 @@ const MultiPlayerBoard = (
 		  <div >
 		  <div> 
 			{/* Game History */}
-			<div id="ithasatag" style={{ marginBottom: '10px' }}>
-			  {history.map((item, index) => {
-				return (item = item + '\n');
-			  })}
-			</div>
+			<div id="ithasatag" style={{ marginBottom: '10px',  color: 'white' , backgroundColor : 'rgba( 0, 0, 0 , 0.3 )' ,  height : '600px' , minWidth : '400px' , maxWidth : '400px' ,  borderRadius : '10px' , padding : '20px' , fontWeight : 'bolder'}}>
+        {history.map((item, index) => {
+          return (item = item + '\n');
+        })}
+      </div>
 			<div style={{
   color:  isChecked ? 'white' :   (isWhiteTurn ? 'black' : 'white'),
   backgroundColor:isChecked ? 'red' :   (isWhiteTurn ? 'white' : 'black'),
@@ -126,11 +130,15 @@ const MultiPlayerBoard = (
 		</div>
 			
 	  
-		  {/* Buttons */}
-		  <br/>
+
 			  </div>
 			</div>
 	  );
 };
 
 export default MultiPlayerBoard;
+
+
+
+
+// backgroundImage : 'url("./wood.jpeg")'
