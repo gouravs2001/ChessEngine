@@ -16,6 +16,8 @@ const MultiPlayerBoard = (
 		//The FEN representation of the board. Stored in state
 		
 		const[game,setGame] = useState(new Chess());
+		const [text,  setText] =  useState("")
+		const [history , setHistory] = useState(game.history())
 		const [boardOrientation,setBoardOrientation] = useState('white');
 	
 
@@ -45,6 +47,8 @@ const MultiPlayerBoard = (
 	
 	  }
 
+	  const isWhiteTurn = game.turn() === 'w';
+
 
 	  useEffect(()=>{
 
@@ -58,13 +62,60 @@ const MultiPlayerBoard = (
 		})
 	  },[socket])
 
+	  useEffect(  () => {
+		if (game.turn() === 'w' && (!game.in_checkmate()) && (!game.in_draw()) && (!game.in_stalemate()) && (!game.insufficient_material()) && (!game.in_threefold_repetition()))
+		{
+		  setText("White's Turn")
+		}
+		else if (game.turn() === "b" && (!game.in_checkmate()) && (!game.in_draw()) && (!game.in_stalemate()) && (!game.insufficient_material()) && (!game.in_threefold_repetition()))
+		{
+		  setText("Black's Turn")
+		}
+		if (game.in_checkmate())
+		{
+		  setText("Game in Checkmate")
+		}
+		else if (game.in_check()){
+		  setText(game.turn() === 'w' ? "White's in Check"  : "Black's in Check")
+		}
+		else if (game.in_draw())
+		{
+		  setText("Game Draw")
+		}
+		setHistory(game.history() )
+	  
+	  
+	  } ,  [game])
+
 	   
-	return (
-		<>
-			<Chessboard position={game.fen() } boardWidth={700} onPieceDrop={onDrop} animationDuration={0} boardOrientation={boardOrientation}  />
+	  return (
+  
+		<div style = {{marginLeft :  '450px' ,  marginTop : '50px'}} >
+		<div style={{ display: 'flex', alignItems: 'flex-start' }}>
+		  <div style={{ marginRight: '20px' }}>
+			{/* Chessboard */}
+			<Chessboard position={game.fen()} onPieceDrop={onDrop} boardWidth={800} animationDuration={0} autoPromoteToQueen={true} boardOrientation={boardOrientation}/>
+		  </div>
+	  
+		  <div >
+		  <div> 
+			{/* Game History */}
+			<div id="ithasatag" style={{ marginBottom: '10px' }}>
+			  {history.map((item, index) => {
+				return (item = item + '\n');
+			  })}
+			</div>
+			<div style= {{ color: isWhiteTurn ? 'black' : 'white', backgroundColor: isWhiteTurn ? 'white' : 'black'  ,  borderRadius :'12px'  ,  alignItems : 'center' , height: '40px' , width : '100px'}}> {text}
+			</div>
+		  </div>
+		</div>
 			
-		</>
-	);
+	  
+		  {/* Buttons */}
+		  <br/>
+			  </div>
+			</div>
+	  );
 };
 
 export default MultiPlayerBoard;
