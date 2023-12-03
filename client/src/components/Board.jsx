@@ -163,6 +163,7 @@ const bigdiv = {
 }
 
 const isWhiteTurn = game.turn() === 'w';
+const isChecked = game.in_check() || game.in_checkmate();
 return (
   
   <div style = {{marginLeft :  '450px' ,  marginTop : '50px'}} >
@@ -186,8 +187,23 @@ return (
           return (item = item + '\n');
         })}
       </div>
-      <div style= {{ color: isWhiteTurn ? 'black' : 'white', backgroundColor: isWhiteTurn ? 'white' : 'black'  ,  borderRadius :'12px'  ,  alignItems : 'center' , height: '40px' , width : '100px'}}> {text}
-      </div>
+      <div style={{
+  color:  isChecked ? 'white' :   (isWhiteTurn ? 'black' : 'white'),
+  backgroundColor:isChecked ? 'red' :   (isWhiteTurn ? 'white' : 'black'),
+  borderRadius: '12px',
+  alignItems: 'center',
+  height: '20px',
+  width: '140px',
+  paddingTop: '14px',
+  paddingLeft: '17px',
+  borderWidth: '2px',
+  borderColor: 'gold', // Set border color to gold
+  borderStyle: 'solid',
+  margin : "5px",
+  paddingBottom: '16px' // Set border style to solid
+}}>
+  {text}
+</div>
       <div>
         <button
           onClick={() => {
