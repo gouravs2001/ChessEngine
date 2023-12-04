@@ -115,16 +115,22 @@ const MultiPlayerBoard = (
   backgroundColor:isChecked ? 'red' :   (isWhiteTurn ? 'white' : 'black'),
   borderRadius: '12px',
   alignItems: 'center',
-  height: '20px',
-  width: '140px',
-  paddingTop: '14px',
-  paddingLeft: '17px',
+  height: '40px',
+  width: '160px',
+  paddingTop: '12px',
+  paddingLeft: '0px',
   borderWidth: '2px',
-  borderColor: 'gold', // Set border color to gold
+  borderColor: 'gold', 
   borderStyle: 'solid',
   margin : "5px",
-  paddingBottom: '16px' // Set border style to solid
-}}> {text}
+  paddingBottom: '0px',
+  fontWeight : 'bolder',
+  textAlign : 'center' ,
+  alignContent : 'center',
+  paddingRight : '6px'
+
+  
+}}>{text}
 			</div>
 		  </div>
 		</div>
