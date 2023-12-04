@@ -47,6 +47,10 @@ const Homepage = () => {
     e.target.style.fontSize = '45px';
     e.target.style.backgroundColor = 'transparent';
   };
+
+
+
+
   const mainDivColor = {
     margin : 'auto',
     backgroundColor : 'rgba( 0, 0, 0 , 0.2 )',
@@ -54,6 +58,22 @@ const Homepage = () => {
     height : '55vh'
 
   }
+
+  const playSound = () => {
+    const audio = new Audio("./mouseclick.wav");
+    audio.play();
+  };
+
+  const onclick = (e) => {
+    navigator(e.target.value);
+  }
+  const mousePress  = (e) => {
+    playSound();
+    e.target.style.fontSize = '40px';
+
+  }
+  
+
     
 
   return (
@@ -66,7 +86,9 @@ const Homepage = () => {
           style={buttonStyle}
           onMouseOver={handleButtonHover}
           onMouseLeave={handleButtonLeave}
-          onClick =  {() => navigator("/vsAi")}
+          value={'/vsAi'}
+          onClick =  {onclick}
+          onMouseDown={mousePress}
         >
           vs Ai
         </button>
@@ -75,9 +97,22 @@ const Homepage = () => {
           style={buttonStyle}
           onMouseOver={handleButtonHover}
           onMouseLeave={handleButtonLeave}
-          onClick={() => {navigator("/vsPlayer")}}
+          value = {'/vsPlayer'}
+          onClick={onclick}
+          onMouseDown={mousePress}
         >
+
           vs Player
+        </button>
+        <button
+          style={buttonStyle}
+          onMouseOver={handleButtonHover}
+          onMouseLeave={handleButtonLeave}
+          value={'/openings'}
+          onClick =  {onclick}
+          onMouseDown={mousePress}
+        >
+          Openings
         </button>
       </div>
     </div >

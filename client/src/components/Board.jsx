@@ -67,7 +67,7 @@ const Board = ()=> {
       depth,
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
-      color ==='b',
+      color ===game.turn(),
       currSum,
       color
     );
@@ -167,13 +167,23 @@ const bigdiv = {
 const isWhiteTurn = game.turn() === 'w';
 const isChecked = game.in_check() || game.in_checkmate();
 return (
-  <div> 
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' , marginLeft : '65px' }}>
   <div style = {{marginLeft :  '450px' ,  marginTop : '50px' }} >
-  <label htmlFor="difficulty"  style={ {color : 'white' , fontWeight : 'bolder'}}  >Select Difficulty:  </label>
-  <select id="difficulty" onChange={handleDifficultyChange} value={depth}>
-    <option value= "1">Easy</option>
-    <option value="2">Medium</option>
-    <option value="3">Hard</option>
+  <label htmlFor="difficulty"  style={ {color : 'white' , fontWeight : 'bolder' , fontSize : '25px'}}  >Select Difficulty:  </label>
+  <select id="difficulty" onChange={handleDifficultyChange} value={depth} 
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            border: '2px solid #ccc',
+            borderRadius: '5px',
+            backgroundColor: 'white',
+            color: 'black',
+            cursor: 'pointer',
+          }}
+  >
+    <option value= "1" style={{cursor : 'pointer'}} >Easy</option>
+    <option value="2" style={{cursor : 'pointer'}} >Medium</option>
+    <option value="3"style={{cursor : 'pointer'}} >Hard</option>
     </select>
   <div style={{ display: 'flex', alignItems: 'flex-start' }}>
     <div style={{ marginRight: '20px' }}>
@@ -184,10 +194,11 @@ return (
     <div >
     <div> 
       {/* Game History */}
-      <div id="ithasatag" style={{ marginBottom: '10px',  color: 'white' , backgroundColor : 'rgba( 0, 0, 0 , 0.3 )' ,  height : '600px' , minWidth : '400px' , maxWidth : '400px' ,  borderRadius : '10px' , padding : '20px' , fontWeight : 'bolder'}}>
-        {history.map((item, index) => {
-          return (item = item + '\n');
+      <div id="ithasatag" style={{ marginBottom: '10px',  color: 'white' , backgroundColor : 'rgba( 0, 0, 0 , 0.3 )' ,  height : '600px' , minWidth : '400px' , maxWidth : '400px' ,  borderRadius : '10px' , padding : '20px' , fontWeight : 'bolder' , overflowY : 'auto'}}>
+        <ol>{history.map((item, index) => {
+          return (<li>{item}</li>);
         })}
+        </ol>
       </div>
       <div style={{
   color:  isChecked ? 'white' :   (isWhiteTurn ? 'black' : 'white'),
@@ -225,6 +236,7 @@ return (
           onClick={() => {
             const gameCopy = { ...game };
             gameCopy.undo();
+            game.undo();
             setGame(gameCopy);
             console.log(game.history().length);
             let move = getBestMove(game, game.history().length % 2 === 0 ? 'b' : 'w', globalSum)[0];
@@ -232,7 +244,7 @@ return (
             updateAdvantage();
           }}
         >
-          <img src="./undo-arrow.png"/>
+          <img src="./undo.png"/>
         </button>
         </div> 
         <div style={{color : 'white' , fontWeight : 'bolder' , margin : '5px'}}> 

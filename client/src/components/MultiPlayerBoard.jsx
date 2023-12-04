@@ -94,7 +94,7 @@ const MultiPlayerBoard = (
 
 	   
 	  return (
-  
+		<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' , marginLeft : '65px' }}>
 		<div style = {{marginLeft :  '450px' ,  marginTop : '50px'}} >
 		<div style={{ display: 'flex', alignItems: 'flex-start' }}>
 		  <div style={{ marginRight: '20px' }}>
@@ -106,9 +106,9 @@ const MultiPlayerBoard = (
 		  <div> 
 			{/* Game History */}
 			<div id="ithasatag" style={{ marginBottom: '10px',  color: 'white' , backgroundColor : 'rgba( 0, 0, 0 , 0.3 )' ,  height : '600px' , minWidth : '400px' , maxWidth : '400px' ,  borderRadius : '10px' , padding : '20px' , fontWeight : 'bolder'}}>
-        {history.map((item, index) => {
-          return (item = item + '\n');
-        })}
+        <ol> {history.map((item, index) => {
+          return (<li>{item}</li>);
+        })}</ol>
       </div>
 			<div style={{
   color:  isChecked ? 'white' :   (isWhiteTurn ? 'black' : 'white'),
@@ -138,6 +138,7 @@ const MultiPlayerBoard = (
 	  
 
 			  </div>
+			</div>
 			</div>
 	  );
 };
