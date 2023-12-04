@@ -75,7 +75,7 @@ const Homepage = () => {
           style={buttonStyle}
           onMouseOver={handleButtonHover}
           onMouseLeave={handleButtonLeave}
-          onClick={() => navigator("/vsPlayer")}
+          onClick={() => {navigator("/vsPlayer")}}
         >
           vs Player
         </button>
